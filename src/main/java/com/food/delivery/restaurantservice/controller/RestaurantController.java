@@ -4,6 +4,7 @@ package com.food.delivery.restaurantservice.controller;
 import com.food.delivery.restaurantservice.model.MenuCategory;
 import com.food.delivery.restaurantservice.model.MenuItem;
 import com.food.delivery.restaurantservice.model.Restaurant;
+import com.food.delivery.restaurantservice.model.Review;
 import com.food.delivery.restaurantservice.service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -56,5 +57,10 @@ public class RestaurantController {
                                                            @RequestParam(required = true) int page,
                                                            @RequestParam(required = true) int size){
         return new ResponseEntity<>(restaurantService.getItems(category, name, restaurantId, page,size), HttpStatus.OK);
+    }
+
+    @PostMapping("/review")
+    public Review writeReview(@RequestBody Review review){
+        return restaurantService.writeReview(review);
     }
 }
