@@ -36,5 +36,9 @@ public class Restaurant {
 
     @OneToMany(targetEntity = MenuCategory.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "restaurant_id", referencedColumnName = "restaurant_id")
+    private List<Review> reviews;
+
+    @OneToMany(targetEntity = MenuCategory.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "restaurant_id", referencedColumnName = "restaurant_id")
     private List<MenuCategory> categories;
 }

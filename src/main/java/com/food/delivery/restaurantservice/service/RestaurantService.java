@@ -3,15 +3,18 @@ package com.food.delivery.restaurantservice.service;
 import com.food.delivery.restaurantservice.model.MenuCategory;
 import com.food.delivery.restaurantservice.model.MenuItem;
 import com.food.delivery.restaurantservice.model.Restaurant;
+import com.food.delivery.restaurantservice.model.Review;
 import com.food.delivery.restaurantservice.respository.CategoryRepository;
 import com.food.delivery.restaurantservice.respository.ItemRepository;
 import com.food.delivery.restaurantservice.respository.RestaurantRepository;
+import com.food.delivery.restaurantservice.respository.ReviewRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +27,8 @@ public class RestaurantService {
     private ItemRepository itemRepository;
     @Autowired
     private CategoryRepository categoryRepository;
+    @Autowired
+    private ReviewRepository reviewRepository;
 
     public Restaurant createRestaurant(Restaurant restaurant) {
         return restaurantRepository.save(restaurant);
@@ -82,5 +87,10 @@ public class RestaurantService {
         else
             items = itemRepository.findAllByRestaurantId(restaurantId, paging);
         return items;
+    }
+
+    public Review writeReview(Review review) {
+        review.setReviewDate(LocalDate.now().toString());
+        return reviewRepository.save(review);
     }
 }
